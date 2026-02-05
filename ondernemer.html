@@ -1,7 +1,73 @@
-<h2>Beschikbare opdrachten</h2>
-<ul id="lijst"></ul>
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Opdrachten • Logitmatch</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <a class="brand-link" href="index.html">
+          <div class="logo">LM</div>
+          <div>
+            <div class="brand-name">Logitmatch</div>
+            <div class="brand-sub">Opdrachten</div>
+          </div>
+        </a>
+      </div>
+      <nav class="nav">
+        <a class="nav-link" href="opdrachtgever.html">Opdracht plaatsen</a>
+      </nav>
+    </div>
+  </header>
 
-<script src="script.js"></script>
-<script>
-  toonOpdrachten();
-</script>
+  <main class="container">
+    <section class="card">
+      <div class="card-head">
+        <h1>Beschikbare opdrachten</h1>
+        <p class="muted">Zoek en reageer op een opdracht. (MVP: reacties zijn demo)</p>
+      </div>
+
+      <div class="toolbar">
+        <input id="search" class="search" placeholder="Zoek op titel / locatie…" />
+        <button class="btn btn-ghost" id="clear">Wis alles</button>
+      </div>
+
+      <div id="empty" class="empty-state hidden">
+        <h3>Geen opdrachten gevonden</h3>
+        <p class="muted">Plaats een opdracht of voeg een demo opdracht toe.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="opdrachtgever.html">Opdracht plaatsen</a>
+          <button class="btn btn-ghost" id="addDemo">Demo toevoegen</button>
+        </div>
+      </div>
+
+      <ul id="lijst" class="list"></ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    toonOpdrachten();
+
+    document.getElementById("search").addEventListener("input", (e) => {
+      toonOpdrachten(e.target.value);
+    });
+
+    document.getElementById("clear").addEventListener("click", () => {
+      if (confirm("Weet je zeker dat je alle opdrachten wilt verwijderen?")) {
+        localStorage.removeItem("opdrachten");
+        toonOpdrachten();
+      }
+    });
+
+    document.getElementById("addDemo").addEventListener("click", () => {
+      addDemoOpdracht();
+      toonOpdrachten();
+    });
+  </script>
+</body>
+</html>

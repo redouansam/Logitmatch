@@ -1,9 +1,76 @@
-<h2>Nieuwe opdracht</h2>
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Opdracht plaatsen • Logitmatch</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <a class="brand-link" href="index.html">
+          <div class="logo">LM</div>
+          <div>
+            <div class="brand-name">Logitmatch</div>
+            <div class="brand-sub">Opdracht plaatsen</div>
+          </div>
+        </a>
+      </div>
+      <nav class="nav">
+        <a class="nav-link" href="ondernemer.html">Opdrachten bekijken</a>
+      </nav>
+    </div>
+  </header>
 
-<input id="titel" placeholder="Titel"><br><br>
-<input id="locatie" placeholder="Locatie"><br><br>
-<textarea id="beschrijving" placeholder="Beschrijving"></textarea><br><br>
+  <main class="container">
+    <section class="card">
+      <div class="card-head">
+        <h1>Nieuwe opdracht</h1>
+        <p class="muted">Vul de gegevens in. De opdracht verschijnt direct bij ondernemers.</p>
+      </div>
 
-<button onclick="opslaan()">Plaats opdracht</button>
+      <form id="form" class="form">
+        <div class="field">
+          <label for="titel">Titel</label>
+          <input id="titel" placeholder="Bijv. Koerier nodig voor Eindhoven centrum" required />
+        </div>
 
-<script src="script.js"></script>
+        <div class="field">
+          <label for="locatie">Locatie</label>
+          <input id="locatie" placeholder="Bijv. Eindhoven" required />
+        </div>
+
+        <div class="field">
+          <label for="beschrijving">Beschrijving</label>
+          <textarea id="beschrijving" placeholder="Beschrijf kort wat je nodig hebt (datum/tijd, soort werk, etc.)" required></textarea>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary" type="submit">Plaats opdracht</button>
+          <button class="btn btn-ghost" type="button" id="demo">Vul demo in</button>
+        </div>
+
+        <div id="msg" class="notice" aria-live="polite"></div>
+      </form>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    // Form submit -> opslaan() uit script.js
+    document.getElementById("form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      opslaan();
+    });
+
+    // Demo button
+    document.getElementById("demo").addEventListener("click", () => {
+      document.getElementById("titel").value = "Spoedrit: pakket ophalen en leveren";
+      document.getElementById("locatie").value = "Eindhoven → Veldhoven";
+      document.getElementById("beschrijving").value = "Vandaag voor 18:00 ophalen, levering binnen 1 uur. Kleine doos.";
+    });
+  </script>
+</body>
+</html>
