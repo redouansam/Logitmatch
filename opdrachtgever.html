@@ -6,7 +6,7 @@
   <title>Opdracht plaatsen • Logitmatch</title>
   <link rel="stylesheet" href="./style.css" />
 </head>
-<body>
+<body data-page="opdrachtgever">
   <header class="topbar">
     <div class="container topbar-inner">
       <div class="brand">
@@ -43,9 +43,18 @@
         </div>
 
         <div class="field">
-          <label for="beschrijving">Beschrijving</label>
-          <textarea id="beschrijving" placeholder="Beschrijf kort wat je nodig hebt (datum/tijd, soort werk, etc.)" required></textarea>
-        </div>
+            <div class="field-row">
+              <label for="beschrijving">Beschrijving</label>
+              <span class="small muted" id="charCount">0/240</span>
+            </div>
+            <textarea
+              id="beschrijving"
+              maxlength="240"
+              placeholder="Voorbeeld: Vandaag 17:00, ophalen Strijp-S, afleveren Airport. Kleine doos."
+              required></textarea>
+            <div class="hint muted small">Hou het kort en duidelijk. Max 240 tekens.</div>
+          </div>
+          
 
         <div class="actions">
           <button class="btn btn-primary" type="submit">Plaats opdracht</button>

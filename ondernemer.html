@@ -6,7 +6,7 @@
   <title>Opdrachten • Logitmatch</title>
   <link rel="stylesheet" href="./style.css" />
 </head>
-<body>
+<body data-page="ondernemer">
   <header class="topbar">
     <div class="container topbar-inner">
       <div class="brand">
@@ -32,13 +32,29 @@
       </div>
 
       <div class="toolbar">
-        <input id="search" class="search" placeholder="Zoek op titel / locatie…" />
-        <button class="btn btn-ghost" id="clear">Wis alles</button>
+        <div class="toolbar-left">
+          <input id="search" class="search" placeholder="Zoek op titel, locatie of tekst…" />
+          <div class="hint muted small">Tip: typ “Eindhoven” of “spoedrit”</div>
+        </div>
+      
+        <div class="toolbar-right">
+          <select id="sort" class="select">
+            <option value="newest">Nieuwste eerst</option>
+            <option value="oldest">Oudste eerst</option>
+            <option value="title">Titel A–Z</option>
+            <option value="location">Locatie A–Z</option>
+          </select>
+      
+          <div class="count-pill" id="count">0 opdrachten</div>
+      
+          <button class="btn btn-ghost" id="addDemo">Demo</button>
+          <button class="btn btn-danger" id="clear">Wis alles</button>
+        </div>
       </div>
 
       <div id="empty" class="empty-state hidden">
         <h3>Geen opdrachten gevonden</h3>
-        <p class="muted">Plaats een opdracht of voeg een demo opdracht toe.</p>
+        <p class="muted">Zoek, sorteer en reageer. (MVP: “Interesse” is demo)</p>
         <div class="actions">
           <a class="btn btn-primary" href="./opdrachtgever.html">Opdracht plaatsen</a>
           <button class="btn btn-ghost" id="addDemo">Demo toevoegen</button>
@@ -51,23 +67,28 @@
 
   <script src="./script.js"></script>
   <script>
-    toonOpdrachten();
-
+    toonOpdrachten("", "newest");
+  
     document.getElementById("search").addEventListener("input", (e) => {
-      toonOpdrachten(e.target.value);
+      toonOpdrachten(e.target.value, document.getElementById("sort").value);
     });
-
+  
+    document.getElementById("sort").addEventListener("change", (e) => {
+      toonOpdrachten(document.getElementById("search").value, e.target.value);
+    });
+  
     document.getElementById("clear").addEventListener("click", () => {
       if (confirm("Weet je zeker dat je alle opdrachten wilt verwijderen?")) {
         localStorage.removeItem("opdrachten");
         toonOpdrachten();
       }
     });
-
+  
     document.getElementById("addDemo").addEventListener("click", () => {
       addDemoOpdracht();
-      toonOpdrachten();
+      toonOpdrachten(document.getElementById("search").value, document.getElementById("sort").value);
     });
   </script>
+  
 </body>
 </html>
